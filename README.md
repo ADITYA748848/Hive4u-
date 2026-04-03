@@ -1,5 +1,7 @@
 # Hive4U - Accommodation Listing Platform
 
+![Hive4U Homepage Preview](docs/hive4u-homepage.png)
+
 **Domain:** [hive4u.in](https://hive4u.in)
 **Live URL:** [hive4u.vercel.app](https://hive4u.vercel.app)
 **Tech Stack:** HTML, CSS, Vanilla JS (zero frameworks, zero build tools)
