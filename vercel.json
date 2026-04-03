@@ -1,0 +1,12 @@
+{
+  "installCommand": "echo skip",
+  "buildCommand": "echo done",
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/sau85_hivu85", "destination": "/admin.html" }
+  ],
+  "redirects": [
+    { "source": "/admin.html", "destination": "/", "statusCode": 302 },
+    { "source": "/admin", "destination": "/", "statusCode": 302 }
+  ]
+}

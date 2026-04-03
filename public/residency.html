@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Listings — Hive4U</title>
+  <meta name="description" content="Browse and filter 500+ verified PGs, flats, and hostels across Noida, Delhi, Gurugram, Greater Noida, Ghaziabad. Filter by type, budget, gender, and amenities.">
+  <meta name="keywords" content="PG in Noida, flat for rent, hostel near me, boys PG, girls PG, 1BHK flat, student accommodation Delhi NCR">
+  <link rel="canonical" href="https://hive4u.in/residency">
+  <meta property="og:title" content="Browse PG, Flat & Hostel Listings — Hive4U">
+  <meta property="og:description" content="Filter 500+ verified PGs, flats & hostels by city, price, and amenities. Zero brokerage.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hive4u.in/residency">
+  <meta name="geo.region" content="IN-DL">
+  <meta name="geo.placename" content="Delhi NCR, India">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23F59E0B'/><path d='M8 16L16 8L24 16V24C24 25.1 23.1 26 22 26H10C8.9 26 8 25.1 8 24V16Z' fill='white'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/residency.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main class="residency-page">
+    <div class="container">
+      <div class="residency-layout">
+        <!-- Sidebar Filters -->
+        <aside class="filters-sidebar" id="filtersSidebar">
+          <div class="filters-header">
+            <h3>Filters</h3>
+            <button class="filters-clear" id="clearFilters">Clear All</button>
+          </div>
+
+          <!-- Type -->
+          <div class="filter-group">
+            <label class="filter-label">Accommodation Type</label>
+            <div class="filter-options" id="filterType">
+              <label class="filter-option">
+                <input type="radio" name="type" value="all" checked>
+                <span>All</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="type" value="pg">
+                <span>PG</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="type" value="flat">
+                <span>Flat</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="type" value="hostel">
+                <span>Hostel</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Subtype (dynamic) -->
+          <div class="filter-group" id="subtypeGroup" style="display:none;">
+            <label class="filter-label">Room Type</label>
+            <div class="filter-options" id="filterSubtype"></div>
+          </div>
+
+          <!-- City -->
+          <div class="filter-group">
+            <label class="filter-label">City</label>
+            <select class="filter-select" id="filterCity">
+              <option value="all">All Cities</option>
+            </select>
+          </div>
+
+          <!-- Price Range -->
+          <div class="filter-group">
+            <label class="filter-label">Price Range</label>
+            <div class="price-range-inputs">
+              <input type="number" id="filterMinPrice" placeholder="Min" min="0">
+              <span>to</span>
+              <input type="number" id="filterMaxPrice" placeholder="Max" min="0">
+            </div>
+          </div>
+
+          <!-- Gender -->
+          <div class="filter-group">
+            <label class="filter-label">Gender</label>
+            <div class="filter-options" id="filterGender">
+              <label class="filter-option">
+                <input type="radio" name="gender" value="all" checked>
+                <span>All</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="gender" value="boys">
+                <span>Boys</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="gender" value="girls">
+                <span>Girls</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="gender" value="unisex">
+                <span>Unisex</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="gender" value="family">
+                <span>Family</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Amenities -->
+          <div class="filter-group">
+            <label class="filter-label">Amenities</label>
+            <div class="filter-options" id="filterAmenities"></div>
+          </div>
+
+          <button class="filter-close-btn" id="filterCloseBtn">Show Results</button>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="residency-main">
+          <div class="residency-toolbar">
+            <p class="result-count" id="resultCount">Loading...</p>
+            <select class="sort-select" id="sortSelect">
+              <option value="newest">Newest First</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+            </select>
+          </div>
+          <div class="residency-grid" id="listingsGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Mobile Filter Toggle -->
+  <button class="filter-toggle-btn" id="filterToggleBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+    Filters
+  </button>
+  <div class="filter-overlay" id="filterOverlay"></div>
+
+  <div id="footer"></div>
+
+  <button class="back-to-top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script type="module">
+    import { initApp } from './js/app.js';
+    import { getData } from './js/data.js';
+    import { renderCard, filterListings, sortListings, getUrlParams, setUrlParams } from './js/utils.js';
+
+    initApp();
+
+    const subtypeMap = {
+      pg: [
+        { value: 'single', label: 'Single Sharing' },
+        { value: 'double', label: 'Double Sharing' },
+        { value: 'triple', label: 'Triple Sharing' },
+        { value: 'four', label: 'Four Sharing' },
+        { value: 'any', label: 'Any / Not Specified' }
+      ],
+      flat: [
+        { value: '1bhk', label: '1 BHK' },
+        { value: '2bhk', label: '2 BHK' },
+        { value: '3bhk', label: '3 BHK' },
+        { value: '4bhk', label: '4 BHK' },
+        { value: 'studio', label: 'Studio' },
+        { value: 'any', label: 'Any / Not Specified' }
+      ],
+      hostel: [
+        { value: '1seater', label: '1 Seater' },
+        { value: '2seater', label: '2 Seater' },
+        { value: '3seater', label: '3 Seater' },
+        { value: '4seater', label: '4 Seater' },
+        { value: '6seater', label: '6 Seater' },
+        { value: 'any', label: 'Any / Not Specified' }
+      ]
+    };
+
+    let allData = null;
+
+    getData().then(data => {
+      allData = data;
+
+      // Populate cities
+      const citySelect = document.getElementById('filterCity');
+      data.cities.forEach(city => {
+        const opt = document.createElement('option');
+        opt.value = city.toLowerCase();
+        opt.textContent = city;
+        citySelect.appendChild(opt);
+      });
+
+      // Populate amenities
+      const amenitiesContainer = document.getElementById('filterAmenities');
+      Object.entries(data.amenityLabels).forEach(([key, label]) => {
+        amenitiesContainer.innerHTML += `
+          <label class="filter-option">
+            <input type="checkbox" name="amenity" value="${key}">
+            <span>${label}</span>
+          </label>
+        `;
+      });
+
+      // Read URL params and set filters
+      const params = getUrlParams();
+      if (params.type) setRadio('type', params.type);
+      if (params.subtype) updateSubtypes(params.type, params.subtype);
+      if (params.city) citySelect.value = params.city;
+      if (params.gender) setRadio('gender', params.gender);
+      if (params.minPrice) document.getElementById('filterMinPrice').value = params.minPrice;
+      if (params.maxPrice) document.getElementById('filterMaxPrice').value = params.maxPrice;
+      if (params.sort) document.getElementById('sortSelect').value = params.sort;
+
+      // Show subtypes if type is set
+      if (params.type && params.type !== 'all') {
+        updateSubtypes(params.type, params.subtype);
+      }
+
+      applyFilters();
+      bindEvents();
+    });
+
+    function setRadio(name, value) {
+      const radio = document.querySelector(`input[name="${name}"][value="${value}"]`);
+      if (radio) radio.checked = true;
+    }
+
+    function updateSubtypes(type, selectedSubtype) {
+      const group = document.getElementById('subtypeGroup');
+      const container = document.getElementById('filterSubtype');
+
+      if (!type || type === 'all' || !subtypeMap[type]) {
+        group.style.display = 'none';
+        container.innerHTML = '';
+        return;
+      }
+
+      group.style.display = '';
+      container.innerHTML = `
+        <label class="filter-option">
+          <input type="radio" name="subtype" value="all" ${!selectedSubtype || selectedSubtype === 'all' ? 'checked' : ''}>
+          <span>All</span>
+        </label>
+        ${subtypeMap[type].map(s => `
+          <label class="filter-option">
+            <input type="radio" name="subtype" value="${s.value}" ${selectedSubtype === s.value ? 'checked' : ''}>
+            <span>${s.label}</span>
+          </label>
+        `).join('')}
+      `;
+
+      // Bind subtype change events
+      container.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('change', applyFilters);
+      });
+    }
+
+    function getFilters() {
+      const type = document.querySelector('input[name="type"]:checked')?.value || 'all';
+      const subtype = document.querySelector('input[name="subtype"]:checked')?.value || 'all';
+      const city = document.getElementById('filterCity').value;
+      const gender = document.querySelector('input[name="gender"]:checked')?.value || 'all';
+      const minPrice = document.getElementById('filterMinPrice').value;
+      const maxPrice = document.getElementById('filterMaxPrice').value;
+      const amenities = [...document.querySelectorAll('input[name="amenity"]:checked')].map(i => i.value);
+
+      return { type, subtype, city, gender, minPrice, maxPrice, amenities };
+    }
+
+    function applyFilters() {
+      const filters = getFilters();
+      const sortBy = document.getElementById('sortSelect').value;
+
+      // Sync URL
+      setUrlParams({ ...filters, amenities: filters.amenities.length ? filters.amenities.join(',') : null, sort: sortBy !== 'newest' ? sortBy : null });
+
+      let results = filterListings(allData.listings, filters);
+      results = sortListings(results, sortBy);
+
+      const grid = document.getElementById('listingsGrid');
+      const count = document.getElementById('resultCount');
+
+      if (results.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            <h3>No listings found</h3>
+            <p>Try adjusting your filters to see more results.</p>
+          </div>
+        `;
+        count.innerHTML = 'No results found';
+      } else {
+        grid.innerHTML = results.map(l => renderCard(l, allData.amenityLabels)).join('');
+        const cityLabel = filters.city !== 'all' ? ` in <strong>${filters.city.charAt(0).toUpperCase() + filters.city.slice(1)}</strong>` : '';
+        count.innerHTML = `Showing <strong>${results.length}</strong> stay${results.length > 1 ? 's' : ''}${cityLabel}`;
+      }
+    }
+
+    function bindEvents() {
+      // Type filter
+      document.querySelectorAll('input[name="type"]').forEach(inp => {
+        inp.addEventListener('change', () => {
+          updateSubtypes(inp.value);
+          applyFilters();
+        });
+      });
+
+      // Gender, City, Sort
+      document.querySelectorAll('input[name="gender"]').forEach(inp => inp.addEventListener('change', applyFilters));
+      document.getElementById('filterCity').addEventListener('change', applyFilters);
+      document.getElementById('sortSelect').addEventListener('change', applyFilters);
+
+      // Price (debounced)
+      let priceTimer;
+      ['filterMinPrice', 'filterMaxPrice'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {
+          clearTimeout(priceTimer);
+          priceTimer = setTimeout(applyFilters, 400);
+        });
+      });
+
+      // Amenities
+      document.getElementById('filterAmenities').addEventListener('change', applyFilters);
+
+      // Clear all
+      document.getElementById('clearFilters').addEventListener('click', () => {
+        setRadio('type', 'all');
+        setRadio('gender', 'all');
+        document.getElementById('filterCity').value = 'all';
+        document.getElementById('filterMinPrice').value = '';
+        document.getElementById('filterMaxPrice').value = '';
+        document.querySelectorAll('input[name="amenity"]').forEach(c => c.checked = false);
+        document.getElementById('sortSelect').value = 'newest';
+        document.getElementById('subtypeGroup').style.display = 'none';
+        document.getElementById('filterSubtype').innerHTML = '';
+        applyFilters();
+      });
+
+      // Mobile filter drawer
+      const sidebar = document.getElementById('filtersSidebar');
+      const toggle = document.getElementById('filterToggleBtn');
+      const overlay = document.getElementById('filterOverlay');
+      const closeBtn = document.getElementById('filterCloseBtn');
+
+      function openDrawer() {
+        sidebar.classList.add('open');
+        overlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeDrawer() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('visible');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', openDrawer);
+      overlay.addEventListener('click', closeDrawer);
+      closeBtn.addEventListener('click', closeDrawer);
+    }
+  </script>
+</body>
+</html>

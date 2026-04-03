@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listing Details — Hive4U</title>
+  <meta name="description" content="View detailed listing with photos, amenities, pricing, and location map. Book via WhatsApp instantly with zero brokerage.">
+  <meta name="robots" content="index, follow">
+  <meta name="geo.region" content="IN-DL">
+  <meta name="geo.placename" content="Delhi NCR, India">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23F59E0B'/><path d='M8 16L16 8L24 16V24C24 25.1 23.1 26 22 26H10C8.9 26 8 25.1 8 24V16Z' fill='white'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/listing.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main class="listing-page" id="listingPage">
+    <div class="container">
+      <!-- Content rendered by JS -->
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <button class="back-to-top" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script type="module">
+    import { initApp } from './js/app.js';
+    import { getListingById, getNearbyListings, getData } from './js/data.js';
+    import { generateWhatsAppLink, formatPrice, getBadgeClass, renderCard } from './js/utils.js';
+
+    initApp();
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const container = document.querySelector('.listing-page .container');
+
+    if (!id) {
+      showNotFound();
+    } else {
+      loadListing(id);
+    }
+
+    async function loadListing(id) {
+      const listing = await getListingById(id);
+      if (!listing) { showNotFound(); return; }
+
+      document.title = `${listing.title} — Hive4U`;
+
+      const data = await getData();
+      const nearby = await getNearbyListings(listing, 3);
+      const waLink = generateWhatsAppLink(listing.title, listing.location.fullAddress);
+      const price = formatPrice(listing.price);
+      const badgeClass = getBadgeClass(listing.type);
+
+      const amenityIcons = {
+        wifi: '📶', ac: '❄️', food: '🍽️', laundry: '👕',
+        'power-backup': '🔋', parking: '🅿️', gym: '🏋️',
+        cctv: '📹', 'water-purifier': '💧', geyser: '🚿'
+      };
+
+      container.innerHTML = `
+        <a href="residency.html" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Listings
+        </a>
+
+        <!-- Gallery -->
+        <div class="gallery">
+          <div class="gallery-main">
+            <img src="${listing.images[0]}" alt="${listing.title}" id="galleryMain">
+            <button class="gallery-nav gallery-prev" id="galleryPrev">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="gallery-nav gallery-next" id="galleryNext">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <span class="gallery-counter" id="galleryCounter">1 / ${listing.images.length}</span>
+          </div>
+          <div class="gallery-thumbs">
+            ${listing.images.map((img, i) => `
+              <div class="gallery-thumb ${i === 0 ? 'active' : ''}" data-index="${i}">
+                <img src="${img}" alt="Photo ${i + 1}">
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="listing-layout">
+          <!-- Content -->
+          <div class="listing-content">
+            <div class="listing-header">
+              <div class="listing-badges">
+                <span class="badge ${badgeClass}">${listing.type.toUpperCase()}</span>
+                <span class="badge" style="background:#F1F5F9;color:var(--text-muted)">${listing.subtype.toUpperCase()}</span>
+                <span class="badge" style="background:#F1F5F9;color:var(--text-muted)">${listing.gender.toUpperCase()}</span>
+              </div>
+              <h1 class="listing-title">${listing.title}</h1>
+              <div class="listing-location">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                ${listing.location.fullAddress}
+                <a href="${listing.location.gmapLink}" target="_blank">View on Map &rarr;</a>
+              </div>
+              <div class="listing-rating">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                ${listing.rating} Rating
+              </div>
+            </div>
+
+            <div class="listing-section">
+              <h2>Description</h2>
+              <p class="listing-description">${listing.description}</p>
+            </div>
+
+            <div class="listing-section">
+              <h2>Amenities</h2>
+              <div class="amenities-grid">
+                ${listing.amenities.map(a => `
+                  <div class="amenity-item">
+                    <span class="amenity-icon">${amenityIcons[a] || '✓'}</span>
+                    ${data.amenityLabels[a] || a}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="listing-section">
+              <h2>Location</h2>
+              <div class="listing-map">
+                ${listing.location.gmapEmbed}
+              </div>
+            </div>
+          </div>
+
+          <!-- Price Card Sidebar -->
+          <div class="price-card">
+            <div class="price-card__price">${price}</div>
+            <p class="price-card__period">${listing.price.period === 'month' ? 'Per Month' : 'Per Year'} &middot; ${listing.subtype.toUpperCase()}</p>
+            <a href="${waLink}" target="_blank" class="price-card__whatsapp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Book via WhatsApp
+            </a>
+            <div class="price-card__info">
+              <div class="price-card__info-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Verified Listing
+              </div>
+              <div class="price-card__info-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Instant Response
+              </div>
+              <div class="price-card__info-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Zero Brokerage
+              </div>
+            </div>
+          </div>
+        </div>
+
+        ${nearby.length > 0 ? `
+        <div class="nearby-section">
+          <h2>Nearby Listings</h2>
+          <div class="nearby-grid">
+            ${nearby.map(l => renderCard(l, data.amenityLabels)).join('')}
+          </div>
+        </div>
+        ` : ''}
+      `;
+
+      // Gallery logic
+      let currentIndex = 0;
+      const images = listing.images;
+      const mainImg = document.getElementById('galleryMain');
+      const counter = document.getElementById('galleryCounter');
+      const thumbs = document.querySelectorAll('.gallery-thumb');
+
+      function showImage(index) {
+        currentIndex = (index + images.length) % images.length;
+        mainImg.src = images[currentIndex];
+        counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIndex));
+      }
+
+      document.getElementById('galleryPrev').addEventListener('click', () => showImage(currentIndex - 1));
+      document.getElementById('galleryNext').addEventListener('click', () => showImage(currentIndex + 1));
+      thumbs.forEach(t => t.addEventListener('click', () => showImage(Number(t.dataset.index))));
+    }
+
+    function showNotFound() {
+      container.innerHTML = `
+        <div class="not-found">
+          <h1>404</h1>
+          <h3>Listing Not Found</h3>
+          <p>The listing you're looking for doesn't exist or has been removed.</p>
+          <a href="residency.html" class="btn btn-primary">Browse All Listings</a>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

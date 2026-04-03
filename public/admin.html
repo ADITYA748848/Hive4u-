@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Hive4U</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23F59E0B'/><path d='M8 16L16 8L24 16V24C24 25.1 23.1 26 22 26H10C8.9 26 8 25.1 8 24V16Z' fill='white'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #F59E0B;
+      --primary-dark: #D97706;
+      --primary-light: #FEF3C7;
+      --secondary: #1E293B;
+      --accent: #10B981;
+      --bg: #F1F5F9;
+      --bg-card: #FFFFFF;
+      --text: #1E293B;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --danger: #EF4444;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* ===== LOGIN SCREEN ===== */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+    }
+    .login-box {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .login-box .logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .login-box .logo span { color: var(--primary); }
+    .login-box .login-subtitle {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    .login-box .form-group {
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+    .login-box label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: var(--primary); outline: none; }
+    .login-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+    .login-btn:hover { background: var(--primary-dark); }
+    .login-error {
+      color: var(--danger);
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+      display: none;
+    }
+    .login-hint {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== ADMIN DASHBOARD (hidden until login) ===== */
+    .admin-dashboard { display: none; }
+    .admin-dashboard.active { display: block; }
+
+    /* Header */
+    .admin-header {
+      background: var(--secondary);
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .admin-header h1 { font-family: 'DM Sans', sans-serif; color: #fff; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; }
+    .admin-header h1 span { color: var(--primary); }
+    .admin-header-actions { display: flex; gap: 1rem; align-items: center; }
+    .admin-header a, .admin-header button {
+      color: #94A3B8; font-size: 0.8rem; text-decoration: none;
+      transition: color 0.2s; background: none; border: none; cursor: pointer; font-family: inherit;
+    }
+    .admin-header a:hover, .admin-header button:hover { color: #fff; }
+    .logout-btn { color: #F87171 !important; }
+    .logout-btn:hover { color: #EF4444 !important; }
+
+    /* Layout */
+    .admin-body { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+
+    /* Stats */
+    .admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .stat-card { background: var(--bg-card); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); }
+    .stat-card__label { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; margin-bottom: 0.25rem; }
+    .stat-card__value { font-family: 'DM Sans', sans-serif; font-size: 1.6rem; font-weight: 700; }
+    .stat-card__value.primary { color: var(--primary); }
+    .stat-card__value.accent { color: var(--accent); }
+
+    /* Toolbar */
+    .admin-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem; }
+    .admin-toolbar h2 { font-family: 'DM Sans', sans-serif; font-size: 1.15rem; }
+    .toolbar-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+    .toolbar-filter {
+      padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 0.8rem; background: #fff; cursor: pointer; font-family: inherit; color: var(--text);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.1rem;
+      border-radius: 8px; font-weight: 600; font-size: 0.8rem; border: none; cursor: pointer;
+      transition: all 0.2s; text-decoration: none; font-family: inherit;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #fff; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-danger { background: #FEE2E2; color: var(--danger); }
+    .btn-danger:hover { background: #FECACA; }
+    .btn-sm { padding: 0.35rem 0.65rem; font-size: 0.75rem; }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-accent:hover { background: #059669; }
+
+    /* Search */
+    .search-input {
+      padding: 0.5rem 0.85rem; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 0.8rem; width: 220px; transition: border-color 0.2s; font-family: inherit;
+    }
+    .search-input:focus { border-color: var(--primary); outline: none; }
+
+    /* Table */
+    .listings-table { background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    thead { background: #F8FAFC; }
+    th {
+      text-align: left; padding: 0.7rem 0.85rem; font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted);
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    td {
+      padding: 0.6rem 0.85rem; font-size: 0.82rem; border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background: #FAFBFC; }
+    .listing-thumb { width: 56px; height: 42px; border-radius: 6px; object-fit: cover; background: var(--border); }
+    .listing-title-cell { font-weight: 600; max-width: 200px; }
+    .listing-title-cell small { display: block; color: var(--text-muted); font-weight: 400; font-size: 0.72rem; margin-top: 2px; }
+    .badge {
+      display: inline-block; padding: 0.18rem 0.45rem; border-radius: 20px;
+      font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .badge-pg { background: var(--primary-light); color: var(--primary-dark); }
+    .badge-flat { background: #DBEAFE; color: #1D4ED8; }
+    .badge-hostel { background: #D1FAE5; color: #059669; }
+    .badge-active { background: #D1FAE5; color: #059669; }
+    .badge-inactive { background: #FEE2E2; color: #DC2626; }
+    .badge-featured { background: var(--primary-light); color: var(--primary-dark); }
+    .actions-cell { display: flex; gap: 0.35rem; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 200; align-items: flex-start; justify-content: center;
+      padding: 2rem; overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg-card); border-radius: var(--radius); width: 100%; max-width: 720px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2); margin-top: 1rem;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.15rem 1.5rem; border-bottom: 1px solid var(--border);
+    }
+    .modal-header h3 { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--bg);
+      border: none; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 1.2rem; color: var(--text-muted); transition: all 0.2s;
+    }
+    .modal-close:hover { background: #FEE2E2; color: var(--danger); }
+    .modal-body { padding: 1.5rem; max-height: 65vh; overflow-y: auto; }
+    .modal-footer {
+      display: flex; justify-content: flex-end; gap: 0.75rem;
+      padding: 1rem 1.5rem; border-top: 1px solid var(--border);
+      background: #F8FAFC; border-radius: 0 0 var(--radius) var(--radius);
+    }
+
+    /* Form */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    .form-group { margin-bottom: 0.15rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 0.55rem 0.7rem; border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 0.82rem; font-family: inherit; color: var(--text);
+      background: #fff; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); outline: none; }
+    .form-group textarea { resize: vertical; min-height: 70px; }
+    .form-hint { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+    /* Amenities checkboxes */
+    .amenities-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .amenity-check { position: relative; }
+    .amenity-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .amenity-check span {
+      display: inline-block; padding: 0.3rem 0.6rem; border: 1.5px solid var(--border);
+      border-radius: 20px; font-size: 0.72rem; font-weight: 500; cursor: pointer;
+      transition: all 0.2s; user-select: none;
+    }
+    .amenity-check span:hover { border-color: var(--primary); }
+    .amenity-check input:checked + span { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+    /* Image preview */
+    /* Image upload box */
+    .image-upload-box {
+      border: 1.5px dashed var(--border); border-radius: 8px; padding: 0.85rem; background: #FAFBFC;
+    }
+    .image-add-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .image-url-input {
+      flex: 1; padding: 0.5rem 0.7rem; border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 0.8rem; font-family: inherit; color: var(--text); transition: border-color 0.2s;
+    }
+    .image-url-input:focus { border-color: var(--primary); outline: none; }
+    .image-list { display: flex; flex-direction: column; gap: 0.4rem; }
+    .image-list-item {
+      display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0.6rem;
+      background: #fff; border: 1px solid var(--border); border-radius: 8px; font-size: 0.78rem;
+    }
+    .image-list-item img {
+      width: 48px; height: 36px; object-fit: cover; border-radius: 4px; flex-shrink: 0; background: var(--border);
+    }
+    .image-list-item .img-url {
+      flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted);
+    }
+    .image-list-item .img-source {
+      font-size: 0.65rem; font-weight: 600; padding: 0.15rem 0.4rem; border-radius: 10px; flex-shrink: 0;
+    }
+    .img-source.gdrive { background: #DBEAFE; color: #1D4ED8; }
+    .img-source.url { background: #F1F5F9; color: var(--text-muted); }
+    .image-list-item .img-remove {
+      width: 24px; height: 24px; border-radius: 50%; background: none; border: none;
+      cursor: pointer; color: #94A3B8; font-size: 1rem; display: flex; align-items: center;
+      justify-content: center; transition: all 0.2s; flex-shrink: 0;
+    }
+    .image-list-item .img-remove:hover { background: #FEE2E2; color: var(--danger); }
+    .image-previews { display: none; }
+
+    /* Toggle switch */
+    .toggle-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; }
+    .toggle { position: relative; width: 40px; height: 22px; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0; background: #CBD5E1; border-radius: 22px;
+      cursor: pointer; transition: 0.2s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute; width: 16px; height: 16px;
+      left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: 0.2s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--accent); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+    .toggle-label { font-size: 0.82rem; font-weight: 500; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem; padding: 0.75rem 1.25rem;
+      border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: #fff;
+      z-index: 999; opacity: 0; transform: translateY(10px);
+      transition: all 0.3s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .toast.success { background: var(--accent); }
+    .toast.error { background: var(--danger); }
+
+    /* Delete confirm modal */
+    .confirm-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 300; align-items: center; justify-content: center;
+    }
+    .confirm-overlay.open { display: flex; }
+    .confirm-box {
+      background: #fff; padding: 2rem; border-radius: var(--radius);
+      max-width: 400px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .confirm-box h3 { margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
+    .confirm-box p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+    .confirm-actions { display: flex; gap: 0.75rem; justify-content: center; }
+
+    @media (max-width: 768px) {
+      .admin-stats { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+      .admin-toolbar { flex-direction: column; align-items: stretch; }
+      .toolbar-actions { flex-direction: column; }
+      .search-input { width: 100%; }
+      .admin-header { padding: 0.85rem 1rem; }
+      .admin-body { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <div class="logo">Hive<span>4U</span></div>
+      <p class="login-subtitle">Admin Panel Login</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginUser">Admin Username</label>
+          <input type="text" id="loginUser" placeholder="Enter username" autocomplete="username" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPass">Password 1</label>
+          <input type="password" id="loginPass" placeholder="Enter password 1" autocomplete="current-password" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPass2">Password 2</label>
+          <input type="password" id="loginPass2" placeholder="Enter password 2" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="login-btn">Sign In</button>
+        <p class="login-error" id="loginError">Invalid username or password</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN DASHBOARD ===== -->
+  <div class="admin-dashboard" id="adminDashboard">
+    <header class="admin-header">
+      <h1>
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#F59E0B"/><path d="M8 16L16 8L24 16V24C24 25.1 23.1 26 22 26H10C8.9 26 8 25.1 8 24V16Z" fill="white"/><rect x="13" y="18" width="6" height="8" rx="1" fill="#F59E0B"/></svg>
+        Hive<span>4U</span> Admin
+      </h1>
+      <div class="admin-header-actions">
+        <a href="/" target="_blank">View Website</a>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+      </div>
+    </header>
+
+    <div class="admin-body">
+      <!-- Stats -->
+      <div class="admin-stats">
+        <div class="stat-card">
+          <div class="stat-card__label">Total Listings</div>
+          <div class="stat-card__value primary" id="statTotal">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Active Listings</div>
+          <div class="stat-card__value accent" id="statActive">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Featured</div>
+          <div class="stat-card__value" style="color:var(--primary)" id="statFeatured">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Cities</div>
+          <div class="stat-card__value" id="statCities">0</div>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="admin-toolbar">
+        <h2>Manage Listings</h2>
+        <div class="toolbar-actions">
+          <input type="text" class="search-input" id="searchInput" placeholder="Search by title, city...">
+          <select class="toolbar-filter" id="filterType">
+            <option value="all">All Types</option>
+            <option value="pg">PG</option>
+            <option value="flat">Flat</option>
+            <option value="hostel">Hostel</option>
+          </select>
+          <button class="btn btn-primary" id="addNewBtn">+ Add Listing</button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="listings-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Type</th>
+              <th>City</th>
+              <th>Price</th>
+              <th>Gender</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="listingsBody">
+            <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--text-muted);">Loading listings...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ADD/EDIT MODAL ===== -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add New Listing</h3>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="listingForm">
+          <input type="hidden" id="formId">
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>Title *</label>
+              <input type="text" id="formTitle" placeholder="e.g. Sunrise PG for Boys" required>
+            </div>
+            <div class="form-group">
+              <label>Type *</label>
+              <select id="formType">
+                <option value="pg">PG</option>
+                <option value="flat">Flat</option>
+                <option value="hostel">Hostel</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Subtype</label>
+              <select id="formSubtype">
+                <option value="single">Single</option>
+                <option value="double">Double</option>
+                <option value="triple">Triple</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Price (Amount) *</label>
+              <input type="number" id="formPriceAmount" placeholder="8500" required>
+            </div>
+            <div class="form-group">
+              <label>Price Period</label>
+              <select id="formPricePeriod">
+                <option value="month">Per Month</option>
+                <option value="year">Per Year</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Gender</label>
+              <select id="formGender">
+                <option value="boys">Boys</option>
+                <option value="girls">Girls</option>
+                <option value="unisex">Unisex</option>
+                <option value="family">Family</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Rating (0-5)</label>
+              <input type="number" id="formRating" step="0.1" min="0" max="5" value="4.0">
+            </div>
+            <div class="form-group">
+              <label>Area / Locality</label>
+              <input type="text" id="formArea" placeholder="e.g. Sector 62">
+            </div>
+            <div class="form-group">
+              <label>City *</label>
+              <input type="text" id="formCity" placeholder="e.g. Noida" required>
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" id="formState" placeholder="e.g. Uttar Pradesh">
+            </div>
+            <div class="form-group full">
+              <label>Full Address</label>
+              <input type="text" id="formFullAddress" placeholder="Complete address with pin code">
+            </div>
+            <div class="form-group full">
+              <label>Google Maps Link</label>
+              <input type="url" id="formGmapLink" placeholder="https://maps.google.com/?q=...">
+            </div>
+            <div class="form-group full">
+              <label>Google Maps Embed Code</label>
+              <textarea id="formGmapEmbed" rows="2" placeholder="Paste Google Maps embed iframe code here"></textarea>
+            </div>
+            <div class="form-group full">
+              <label>Description</label>
+              <textarea id="formDescription" rows="3" placeholder="Describe the property — rooms, facilities, neighbourhood..."></textarea>
+            </div>
+            <div class="form-group full">
+              <label>Images</label>
+              <div class="image-upload-box" id="imageUploadBox">
+                <div class="image-add-row">
+                  <input type="text" id="imageUrlInput" placeholder="Paste Google Drive link or any image URL" class="image-url-input">
+                  <button type="button" class="btn btn-primary btn-sm" id="addImageBtn">Add</button>
+                </div>
+                <div class="form-hint" style="margin-bottom:0.5rem">
+                  Supports: Google Drive share links, Unsplash URLs, or any direct image URL.<br>
+                  <strong>Google Drive:</strong> Upload image → Right-click → Share → Copy link → Paste here
+                </div>
+                <div class="image-list" id="imageList"></div>
+                <textarea id="formImages" rows="2" style="display:none"></textarea>
+              </div>
+              <div class="image-previews" id="imagePreview"></div>
+            </div>
+            <div class="form-group full">
+              <label>Amenities</label>
+              <div class="amenities-grid" id="amenitiesGrid">
+                <label class="amenity-check"><input type="checkbox" value="wifi"><span>WiFi</span></label>
+                <label class="amenity-check"><input type="checkbox" value="ac"><span>AC</span></label>
+                <label class="amenity-check"><input type="checkbox" value="food"><span>Food</span></label>
+                <label class="amenity-check"><input type="checkbox" value="laundry"><span>Laundry</span></label>
+                <label class="amenity-check"><input type="checkbox" value="power-backup"><span>Power Backup</span></label>
+                <label class="amenity-check"><input type="checkbox" value="parking"><span>Parking</span></label>
+                <label class="amenity-check"><input type="checkbox" value="gym"><span>Gym</span></label>
+                <label class="amenity-check"><input type="checkbox" value="cctv"><span>CCTV</span></label>
+                <label class="amenity-check"><input type="checkbox" value="water-purifier"><span>Water Purifier</span></label>
+                <label class="amenity-check"><input type="checkbox" value="geyser"><span>Geyser</span></label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="toggle-row">
+                <label class="toggle"><input type="checkbox" id="formFeatured"><span class="toggle-slider"></span></label>
+                <span class="toggle-label">Featured on Homepage</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="toggle-row">
+                <label class="toggle"><input type="checkbox" id="formAvailable" checked><span class="toggle-slider"></span></label>
+                <span class="toggle-label">Available / Active</span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modalCancel">Cancel</button>
+        <button class="btn btn-accent" id="modalSave">Save Listing</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DELETE CONFIRM ===== -->
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <h3>Delete Listing?</h3>
+      <p id="confirmText">Are you sure you want to delete this listing? This action cannot be undone.</p>
+      <div class="confirm-actions">
+        <button class="btn btn-secondary" id="confirmCancel">Cancel</button>
+        <button class="btn btn-danger" id="confirmDelete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ===== CONFIG =====
+    const DATA_URL = '/data/listings.json';
+    const GITHUB_REPO = 'sandeep100000/hive4u';
+    const GITHUB_FILE_PATH = 'public/data/listings.json';
+    const GITHUB_TOKEN = '';
+    const VERCEL_TOKEN = '';
+    const VERCEL_PROJECT = 'hive4u';
+    const ADMIN_USER = 'admin';
+    const ADMIN_PASS_1 = 'sau5934#$@jy';
+    const ADMIN_PASS_2 = 'sau5304#@@jy';
+    const SESSION_KEY = 'hive4u_admin_session';
+
+    let allListings = [];
+    let allData = {};
+    let deleteTargetId = null;
+    let githubFileSha = null;
+
+    const subtypeMap = {
+      pg: [['single','Single Sharing'],['double','Double Sharing'],['triple','Triple Sharing'],['four','Four Sharing'],['any','Any / Not Specified']],
+      flat: [['1bhk','1 BHK'],['2bhk','2 BHK'],['3bhk','3 BHK'],['4bhk','4 BHK'],['studio','Studio'],['any','Any / Not Specified']],
+      hostel: [['1seater','1 Seater'],['2seater','2 Seater'],['3seater','3 Seater'],['4seater','4 Seater'],['6seater','6 Seater'],['any','Any / Not Specified']]
+    };
+
+    // ===== AUTH =====
+    function checkAuth() {
+      const session = sessionStorage.getItem(SESSION_KEY);
+      if (session === 'authenticated') {
+        showDashboard();
+      }
+    }
+
+    function showDashboard() {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminDashboard').classList.add('active');
+      loadListings();
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = document.getElementById('loginUser').value.trim();
+      const pass1 = document.getElementById('loginPass').value;
+      const pass2 = document.getElementById('loginPass2').value;
+      if (user === ADMIN_USER && pass1 === ADMIN_PASS_1 && pass2 === ADMIN_PASS_2) {
+        sessionStorage.setItem(SESSION_KEY, 'authenticated');
+        showDashboard();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('loginPass').value = '';
+        document.getElementById('loginPass2').value = '';
+        setTimeout(() => { document.getElementById('loginError').style.display = 'none'; }, 3000);
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      sessionStorage.removeItem(SESSION_KEY);
+      document.getElementById('adminDashboard').classList.remove('active');
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('loginForm').reset();
+    });
+
+    // ===== LOAD DATA =====
+    async function loadListings() {
+      try {
+        // Load data from static JSON
+        const res = await fetch(DATA_URL + '?t=' + Date.now());
+        if (!res.ok) throw new Error('Failed to load data');
+        allData = await res.json();
+        allListings = allData.listings || [];
+        renderTable(allListings);
+        updateStats();
+        // Get GitHub file SHA for future updates
+        fetchGitHubSha();
+      } catch (err) {
+        showToast('Failed to load listings: ' + err.message, 'error');
+      }
+    }
+
+    async function fetchGitHubSha() {
+      try {
+        const res = await fetch('https://api.github.com/repos/' + GITHUB_REPO + '/contents/' + GITHUB_FILE_PATH, {
+          headers: { 'Authorization': 'token ' + GITHUB_TOKEN }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          githubFileSha = data.sha;
+        }
+      } catch(e) { console.warn('Could not fetch GitHub SHA:', e); }
+    }
+
+    async function saveToGitHub(data, message) {
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+      const body = {
+        message: message || 'Update listings via admin panel',
+        content: content,
+        branch: 'main'
+      };
+      if (githubFileSha) body.sha = githubFileSha;
+
+      const res = await fetch('https://api.github.com/repos/' + GITHUB_REPO + '/contents/' + GITHUB_FILE_PATH, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'token ' + GITHUB_TOKEN,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || 'GitHub save failed');
+      }
+
+      const result = await res.json();
+      githubFileSha = result.content.sha;
+
+      // Trigger Vercel redeploy
+      try {
+        await fetch('https://api.vercel.com/v13/deployments', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + VERCEL_TOKEN,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: VERCEL_PROJECT,
+            project: VERCEL_PROJECT,
+            gitSource: { type: 'github', org: 'sandeep100000', repo: 'hive4u', ref: 'main' },
+            target: 'production',
+            projectSettings: { buildCommand: 'echo done', installCommand: 'echo skip', outputDirectory: 'public', framework: null }
+          })
+        });
+      } catch(e) { console.warn('Vercel deploy trigger failed:', e); }
+
+      return result;
+    }
+
+    // ===== RENDER TABLE =====
+    function renderTable(listings) {
+      const tbody = document.getElementById('listingsBody');
+      if (listings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:3rem;color:var(--text-muted);">No listings found. Click "+ Add Listing" to create one.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = listings.map(l => {
+        const badgeClass = l.type === 'pg' ? 'badge-pg' : l.type === 'flat' ? 'badge-flat' : 'badge-hostel';
+        const price = (l.price && l.price.amount) ? l.price.amount.toLocaleString('en-IN') : '0';
+        const period = (l.price && l.price.period === 'year') ? '/yr' : '/mo';
+        const imgSrc = (l.images && l.images.length > 0) ? l.images[0] : '';
+        return '<tr>' +
+          '<td><img class="listing-thumb" src="' + imgSrc + '" alt="" loading="lazy" onerror="this.style.background=\'#E2E8F0\';this.src=\'\'"></td>' +
+          '<td class="listing-title-cell">' + escHtml(l.title) + '<small>' + escHtml((l.location ? l.location.area : '') + ', ' + (l.location ? l.location.city : '')) + '</small></td>' +
+          '<td><span class="badge ' + badgeClass + '">' + l.type + '</span> <span class="badge" style="background:#F1F5F9;color:var(--text-muted)">' + l.subtype + '</span></td>' +
+          '<td>' + escHtml(l.location ? l.location.city : '') + '</td>' +
+          '<td style="font-weight:600;white-space:nowrap">\u20B9' + price + period + '</td>' +
+          '<td style="text-transform:capitalize">' + (l.gender || '') + '</td>' +
+          '<td>' + (l.available ? '<span class="badge badge-active">Active</span>' : '<span class="badge badge-inactive">Inactive</span>') +
+            (l.featured ? ' <span class="badge badge-featured">Featured</span>' : '') + '</td>' +
+          '<td><div class="actions-cell">' +
+            '<button class="btn btn-secondary btn-sm" data-edit="' + l.id + '">Edit</button>' +
+            '<button class="btn btn-danger btn-sm" data-delete="' + l.id + '" data-title="' + escAttr(l.title) + '">Delete</button>' +
+          '</div></td>' +
+        '</tr>';
+      }).join('');
+
+      // Bind edit/delete buttons
+      tbody.querySelectorAll('[data-edit]').forEach(btn => {
+        btn.addEventListener('click', () => editListing(btn.dataset.edit));
+      });
+      tbody.querySelectorAll('[data-delete]').forEach(btn => {
+        btn.addEventListener('click', () => showDeleteConfirm(btn.dataset.delete, btn.dataset.title));
+      });
+    }
+
+    function escHtml(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
+    function escAttr(str) { return (str || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+
+    // ===== STATS =====
+    function updateStats() {
+      document.getElementById('statTotal').textContent = allListings.length;
+      document.getElementById('statActive').textContent = allListings.filter(l => l.available).length;
+      document.getElementById('statFeatured').textContent = allListings.filter(l => l.featured).length;
+      document.getElementById('statCities').textContent = new Set(allListings.map(l => l.location ? l.location.city : '')).size;
+    }
+
+    // ===== SEARCH & FILTER =====
+    function applyTableFilters() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const typeFilter = document.getElementById('filterType').value;
+      const filtered = allListings.filter(l => {
+        const matchSearch = !q || l.title.toLowerCase().includes(q) ||
+          (l.location && l.location.city.toLowerCase().includes(q)) ||
+          (l.location && l.location.area.toLowerCase().includes(q));
+        const matchType = typeFilter === 'all' || l.type === typeFilter;
+        return matchSearch && matchType;
+      });
+      renderTable(filtered);
+    }
+    document.getElementById('searchInput').addEventListener('input', applyTableFilters);
+    document.getElementById('filterType').addEventListener('change', applyTableFilters);
+
+    // ===== MODAL =====
+    const modal = document.getElementById('modal');
+    function openModal(title) {
+      document.getElementById('modalTitle').textContent = title || 'Add New Listing';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      document.getElementById('listingForm').reset();
+      document.getElementById('formId').value = '';
+      document.getElementById('formAvailable').checked = true;
+      document.getElementById('imageUrlInput').value = '';
+      imageUrls = [];
+      renderImageList();
+      updateSubtypeOptions('pg');
+    }
+
+    document.getElementById('addNewBtn').addEventListener('click', () => { closeModal(); openModal('Add New Listing'); });
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalCancel').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+    // Type -> Subtype
+    document.getElementById('formType').addEventListener('change', (e) => updateSubtypeOptions(e.target.value));
+    function updateSubtypeOptions(type) {
+      const sel = document.getElementById('formSubtype');
+      const opts = subtypeMap[type] || [];
+      sel.innerHTML = opts.map(([v, l]) => '<option value="' + v + '">' + l + '</option>').join('');
+    }
+
+    // ===== GOOGLE DRIVE & IMAGE MANAGEMENT =====
+    let imageUrls = [];
+
+    function convertGoogleDriveUrl(url) {
+      // Handle various Google Drive URL formats
+      var fileId = null;
+      // Format: https://drive.google.com/file/d/FILE_ID/view
+      var match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (match) fileId = match[1];
+      // Format: https://drive.google.com/open?id=FILE_ID
+      if (!fileId) { match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/); if (match) fileId = match[1]; }
+      // Format: https://drive.google.com/uc?id=FILE_ID
+      if (!fileId) { match = url.match(/\/uc\?.*id=([a-zA-Z0-9_-]+)/); if (match) fileId = match[1]; }
+
+      if (fileId) {
+        return {
+          url: 'https://lh3.googleusercontent.com/d/' + fileId + '=w800',
+          source: 'gdrive',
+          id: fileId
+        };
+      }
+      return { url: url, source: 'url', id: null };
+    }
+
+    function renderImageList() {
+      var list = document.getElementById('imageList');
+      if (imageUrls.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--text-muted);font-size:0.8rem;">No images added yet</div>';
+      } else {
+        list.innerHTML = imageUrls.map(function(img, i) {
+          return '<div class="image-list-item">' +
+            '<img src="' + escAttr(img.url) + '" alt="" onerror="this.style.background=\'#E2E8F0\'">' +
+            '<span class="img-url">' + escHtml(img.url) + '</span>' +
+            '<span class="img-source ' + img.source + '">' + (img.source === 'gdrive' ? 'Drive' : 'URL') + '</span>' +
+            '<button type="button" class="img-remove" data-index="' + i + '">&times;</button>' +
+          '</div>';
+        }).join('');
+      }
+      // Sync hidden textarea
+      document.getElementById('formImages').value = imageUrls.map(function(img){ return img.url; }).join('\n');
+      // Bind remove buttons
+      list.querySelectorAll('.img-remove').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          imageUrls.splice(parseInt(this.dataset.index), 1);
+          renderImageList();
+        });
+      });
+    }
+
+    document.getElementById('addImageBtn').addEventListener('click', function() {
+      var input = document.getElementById('imageUrlInput');
+      var raw = input.value.trim();
+      if (!raw) return;
+      // Support multiple URLs pasted with newlines
+      var urls = raw.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+      urls.forEach(function(u) {
+        var converted = convertGoogleDriveUrl(u);
+        imageUrls.push(converted);
+      });
+      input.value = '';
+      renderImageList();
+      showToast(urls.length + ' image' + (urls.length > 1 ? 's' : '') + ' added', 'success');
+    });
+
+    // Also support Enter key in input
+    document.getElementById('imageUrlInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); document.getElementById('addImageBtn').click(); }
+    });
+
+    function setImageUrls(urls) {
+      imageUrls = (urls || []).map(function(u) { return convertGoogleDriveUrl(u); });
+      renderImageList();
+    }
+
+    // ===== EDIT =====
+    function editListing(id) {
+      const l = allListings.find(x => x.id === id);
+      if (!l) return;
+
+      document.getElementById('formId').value = l.id;
+      document.getElementById('formTitle').value = l.title || '';
+      document.getElementById('formType').value = l.type || 'pg';
+      updateSubtypeOptions(l.type || 'pg');
+      document.getElementById('formSubtype').value = l.subtype || '';
+      document.getElementById('formPriceAmount').value = l.price ? l.price.amount : '';
+      document.getElementById('formPricePeriod').value = l.price ? l.price.period : 'month';
+      document.getElementById('formGender').value = l.gender || 'boys';
+      document.getElementById('formRating').value = l.rating || 4.0;
+      document.getElementById('formArea').value = l.location ? l.location.area : '';
+      document.getElementById('formCity').value = l.location ? l.location.city : '';
+      document.getElementById('formState').value = l.location ? l.location.state : '';
+      document.getElementById('formFullAddress').value = l.location ? l.location.fullAddress : '';
+      document.getElementById('formGmapLink').value = l.location ? l.location.gmapLink : '';
+      document.getElementById('formGmapEmbed').value = l.location ? l.location.gmapEmbed : '';
+      document.getElementById('formDescription').value = l.description || '';
+      setImageUrls(l.images || []);
+      document.getElementById('formFeatured').checked = !!l.featured;
+      document.getElementById('formAvailable').checked = l.available !== false;
+
+      // Amenities
+      document.querySelectorAll('#amenitiesGrid input').forEach(cb => {
+        cb.checked = (l.amenities || []).includes(cb.value);
+      });
+
+      openModal('Edit Listing');
+    }
+
+    // ===== DELETE =====
+    function showDeleteConfirm(id, title) {
+      deleteTargetId = id;
+      document.getElementById('confirmText').textContent = 'Are you sure you want to delete "' + title + '"? This cannot be undone.';
+      document.getElementById('confirmOverlay').classList.add('open');
+    }
+
+    document.getElementById('confirmCancel').addEventListener('click', () => {
+      document.getElementById('confirmOverlay').classList.remove('open');
+      deleteTargetId = null;
+    });
+
+    document.getElementById('confirmDelete').addEventListener('click', async () => {
+      if (!deleteTargetId) return;
+      try {
+        var idx = allData.listings.findIndex(function(l){ return l.id === deleteTargetId; });
+        if (idx === -1) throw new Error('Listing not found');
+        var title = allData.listings[idx].title;
+        allData.listings.splice(idx, 1);
+        await saveToGitHub(allData, 'Delete listing: ' + title);
+        showToast('Listing deleted! Site will redeploy in ~30s.', 'success');
+        allListings = allData.listings;
+        renderTable(allListings);
+        updateStats();
+      } catch(e) { showToast('Delete failed: ' + e.message, 'error'); }
+      document.getElementById('confirmOverlay').classList.remove('open');
+      deleteTargetId = null;
+    });
+
+    // ===== SAVE =====
+    document.getElementById('modalSave').addEventListener('click', async () => {
+      const id = document.getElementById('formId').value;
+      const title = document.getElementById('formTitle').value.trim();
+      const city = document.getElementById('formCity').value.trim();
+      const priceAmount = document.getElementById('formPriceAmount').value;
+
+      if (!title) { showToast('Title is required', 'error'); return; }
+      if (!city) { showToast('City is required', 'error'); return; }
+      if (!priceAmount) { showToast('Price is required', 'error'); return; }
+
+      const amenities = [...document.querySelectorAll('#amenitiesGrid input:checked')].map(cb => cb.value);
+      const imagesText = document.getElementById('formImages').value.trim();
+      const images = imagesText ? imagesText.split('\n').map(s => s.trim()).filter(Boolean) : [];
+
+      const payload = {
+        title,
+        type: document.getElementById('formType').value,
+        subtype: document.getElementById('formSubtype').value,
+        priceAmount,
+        pricePeriod: document.getElementById('formPricePeriod').value,
+        gender: document.getElementById('formGender').value,
+        rating: document.getElementById('formRating').value,
+        area: document.getElementById('formArea').value.trim(),
+        city,
+        state: document.getElementById('formState').value.trim(),
+        fullAddress: document.getElementById('formFullAddress').value.trim(),
+        gmapLink: document.getElementById('formGmapLink').value.trim(),
+        gmapEmbed: document.getElementById('formGmapEmbed').value.trim(),
+        description: document.getElementById('formDescription').value.trim(),
+        images,
+        amenities,
+        featured: document.getElementById('formFeatured').checked,
+        available: document.getElementById('formAvailable').checked
+      };
+
+      try {
+        const isEdit = !!id;
+
+        if (isEdit) {
+          // Update existing listing
+          var idx = allData.listings.findIndex(function(l){ return l.id === id; });
+          if (idx === -1) throw new Error('Listing not found');
+          var existing = allData.listings[idx];
+          existing.title = payload.title;
+          existing.type = payload.type;
+          existing.subtype = payload.subtype;
+          existing.description = payload.description;
+          existing.gender = payload.gender;
+          existing.amenities = payload.amenities;
+          existing.images = payload.images;
+          existing.rating = parseFloat(payload.rating) || 4.0;
+          existing.featured = payload.featured;
+          existing.available = payload.available;
+          existing.location = { area: payload.area, city: payload.city, state: payload.state, fullAddress: payload.fullAddress, gmapEmbed: payload.gmapEmbed, gmapLink: payload.gmapLink, lat: existing.location.lat || 0, lng: existing.location.lng || 0 };
+          existing.price = { amount: parseInt(payload.priceAmount) || 0, period: payload.pricePeriod, currency: 'INR' };
+          existing.slug = payload.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          allData.listings[idx] = existing;
+          await saveToGitHub(allData, 'Update listing: ' + payload.title);
+        } else {
+          // Create new listing
+          var newId = payload.type + '-' + Math.random().toString(36).substr(2, 8);
+          var newListing = {
+            id: newId,
+            type: payload.type,
+            subtype: payload.subtype,
+            title: payload.title,
+            slug: payload.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+            location: { area: payload.area, city: payload.city, state: payload.state, fullAddress: payload.fullAddress, gmapEmbed: payload.gmapEmbed, gmapLink: payload.gmapLink, lat: 0, lng: 0 },
+            price: { amount: parseInt(payload.priceAmount) || 0, period: payload.pricePeriod, currency: 'INR' },
+            description: payload.description,
+            amenities: payload.amenities,
+            images: payload.images,
+            gender: payload.gender,
+            rating: parseFloat(payload.rating) || 4.0,
+            featured: payload.featured,
+            available: payload.available,
+            postedDate: new Date().toISOString().split('T')[0]
+          };
+          allData.listings.push(newListing);
+          if (payload.city && !allData.cities.includes(payload.city)) {
+            allData.cities.push(payload.city);
+          }
+          await saveToGitHub(allData, 'Add listing: ' + payload.title);
+        }
+
+        showToast((isEdit ? 'Listing updated!' : 'Listing created!') + ' Site will redeploy in ~30s.', 'success');
+        closeModal();
+        allListings = allData.listings;
+        renderTable(allListings);
+        updateStats();
+      } catch(e) { showToast('Save failed: ' + e.message, 'error'); }
+    });
+
+    // ===== TOAST =====
+    function showToast(msg, type) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast ' + (type || 'success') + ' show';
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // ===== INIT =====
+    checkAuth();
+  </script>
+</body>
+</html>

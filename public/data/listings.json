@@ -1,0 +1,795 @@
+{
+  "listings": [
+    {
+      "id": "pg-001",
+      "type": "pg",
+      "subtype": "single",
+      "title": "Sunrise PG for Boys",
+      "slug": "sunrise-pg-boys-sector-62",
+      "location": {
+        "area": "Sector 62",
+        "city": "Noida",
+        "state": "Uttar Pradesh",
+        "fullAddress": "Plot 45, Sector 62, Noida, UP 201301",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.5!2d77.365!3d28.627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDM3JzM3LjIiTiA3N8KwMjEnNTQuMCJF!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.6274,77.3650",
+        "lat": 28.6274,
+        "lng": 77.365
+      },
+      "price": {
+        "amount": 8500,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Fully furnished single-occupancy PG with AC rooms, high-speed WiFi, and daily housekeeping. Located just 5 minutes walk from Sector 62 metro station. Nutritious vegetarian and non-vegetarian meals included. 24/7 power backup, CCTV security, and water purifier on every floor.",
+      "amenities": [
+        "wifi",
+        "ac",
+        "food",
+        "laundry",
+        "power-backup",
+        "cctv",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1630699144867-37acec97df5a?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800&h=600&fit=crop"
+      ],
+      "gender": "boys",
+      "rating": 4.5,
+      "featured": true,
+      "available": true,
+      "postedDate": "2026-03-15"
+    },
+    {
+      "id": "pg-002",
+      "type": "pg",
+      "subtype": "double",
+      "title": "Grace PG for Girls",
+      "slug": "grace-pg-girls-sector-18",
+      "location": {
+        "area": "Sector 18",
+        "city": "Noida",
+        "state": "Uttar Pradesh",
+        "fullAddress": "B-12, Sector 18, Noida, UP 201301",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.2!2d77.326!3d28.570!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.5700,77.3260",
+        "lat": 28.57,
+        "lng": 77.326
+      },
+      "price": {
+        "amount": 6000,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Safe and comfortable double-sharing PG exclusively for girls. Located in the heart of Sector 18 with easy access to markets and metro. Home-cooked meals, weekly room cleaning, and a friendly community atmosphere. Warden available 24/7.",
+      "amenities": [
+        "wifi",
+        "food",
+        "laundry",
+        "power-backup",
+        "cctv",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=600&fit=crop"
+      ],
+      "gender": "girls",
+      "rating": 4.3,
+      "featured": true,
+      "available": true,
+      "postedDate": "2026-03-10"
+    },
+    {
+      "id": "pg-003",
+      "type": "pg",
+      "subtype": "triple",
+      "title": "Budget Stay PG",
+      "slug": "budget-stay-pg-greater-noida",
+      "location": {
+        "area": "Knowledge Park",
+        "city": "Greater Noida",
+        "state": "Uttar Pradesh",
+        "fullAddress": "Plot 22, Knowledge Park III, Greater Noida, UP 201310",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504!2d77.49!3d28.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.4700,77.4900",
+        "lat": 28.47,
+        "lng": 77.49
+      },
+      "price": {
+        "amount": 4500,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Affordable triple-sharing PG near all major colleges in Knowledge Park. Clean rooms with attached bathrooms, basic furnishing, and meal options available. Ideal for students looking for budget accommodation.",
+      "amenities": [
+        "wifi",
+        "food",
+        "power-backup",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop"
+      ],
+      "gender": "boys",
+      "rating": 3.8,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-03-05"
+    },
+    {
+      "id": "pg-004",
+      "type": "pg",
+      "subtype": "single",
+      "title": "Urban Nest Unisex PG",
+      "slug": "urban-nest-pg-gurugram",
+      "location": {
+        "area": "Sector 48",
+        "city": "Gurugram",
+        "state": "Haryana",
+        "fullAddress": "Tower C, Sector 48, Gurugram, Haryana 122018",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507!2d77.04!3d28.42!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.4200,77.0400",
+        "lat": 28.42,
+        "lng": 77.04
+      },
+      "price": {
+        "amount": 12000,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Premium unisex PG with fully air-conditioned rooms, attached bathrooms, and modern interiors. Walking distance to Rapid Metro, Cyber Hub, and major corporate offices. Includes gym access, laundry service, and all meals.",
+      "amenities": [
+        "wifi",
+        "ac",
+        "food",
+        "laundry",
+        "power-backup",
+        "parking",
+        "gym",
+        "cctv",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop"
+      ],
+      "gender": "unisex",
+      "rating": 4.7,
+      "featured": true,
+      "available": true,
+      "postedDate": "2026-03-18"
+    },
+    {
+      "id": "pg-006",
+      "type": "pg",
+      "subtype": "triple",
+      "title": "Sakhi Girls PG",
+      "slug": "sakhi-girls-pg-delhi",
+      "location": {
+        "area": "Laxmi Nagar",
+        "city": "Delhi",
+        "state": "Delhi",
+        "fullAddress": "32/A, Main Market, Laxmi Nagar, Delhi 110092",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501!2d77.27!3d28.63!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.6300,77.2700",
+        "lat": 28.63,
+        "lng": 77.27
+      },
+      "price": {
+        "amount": 5000,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Safe and homely girls PG in Laxmi Nagar. Well-connected to metro and markets. Homestyle meals, clean washrooms, and a supportive warden make this the perfect home away from home.",
+      "amenities": [
+        "wifi",
+        "food",
+        "laundry",
+        "power-backup",
+        "cctv",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1630699144867-37acec97df5a?w=800&h=600&fit=crop"
+      ],
+      "gender": "girls",
+      "rating": 4.2,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-03-01"
+    },
+    {
+      "id": "flat-001",
+      "type": "flat",
+      "subtype": "1bhk",
+      "title": "Modern 1BHK in Sector 75",
+      "slug": "modern-1bhk-sector-75-noida",
+      "location": {
+        "area": "Sector 75",
+        "city": "Noida",
+        "state": "Uttar Pradesh",
+        "fullAddress": "Supertech Cape Town, Sector 75, Noida, UP 201301",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503!2d77.39!3d28.57!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.5700,77.3900",
+        "lat": 28.57,
+        "lng": 77.39
+      },
+      "price": {
+        "amount": 15000,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Bright and airy 1BHK apartment in a gated society with 24/7 security. Semi-furnished with modular kitchen, wardrobes, and split AC. Society amenities include swimming pool, clubhouse, and park. Close to Sector 76 metro.",
+      "amenities": [
+        "ac",
+        "parking",
+        "gym",
+        "cctv",
+        "power-backup",
+        "water-purifier"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop"
+      ],
+      "gender": "family",
+      "rating": 4.4,
+      "featured": true,
+      "available": true,
+      "postedDate": "2026-03-12"
+    },
+    {
+      "id": "flat-002",
+      "type": "flat",
+      "subtype": "2bhk",
+      "title": "Spacious 2BHK Apartment",
+      "slug": "spacious-2bhk-greater-noida",
+      "location": {
+        "area": "Pari Chowk",
+        "city": "Greater Noida",
+        "state": "Uttar Pradesh",
+        "fullAddress": "Gaur City, Pari Chowk, Greater Noida, UP 201310",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505!2d77.45!3d28.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.4700,77.4500",
+        "lat": 28.47,
+        "lng": 77.45
+      },
+      "price": {
+        "amount": 20000,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Spacious 2BHK in Gaur City with excellent ventilation and natural lighting. Fully furnished with modern appliances. Society features include kids play area, jogging track, and clubhouse.",
+      "amenities": [
+        "ac",
+        "parking",
+        "gym",
+        "cctv",
+        "power-backup",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop"
+      ],
+      "gender": "family",
+      "rating": 4.6,
+      "featured": true,
+      "available": true,
+      "postedDate": "2026-03-08"
+    },
+    {
+      "id": "flat-003",
+      "type": "flat",
+      "subtype": "3bhk",
+      "title": "Premium 3BHK in DLF Phase 5",
+      "slug": "premium-3bhk-dlf-gurugram",
+      "location": {
+        "area": "DLF Phase 5",
+        "city": "Gurugram",
+        "state": "Haryana",
+        "fullAddress": "DLF The Belaire, DLF Phase 5, Gurugram, Haryana 122009",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508!2d77.09!3d28.44!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.4400,77.0900",
+        "lat": 28.44,
+        "lng": 77.09
+      },
+      "price": {
+        "amount": 35000,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Luxurious 3BHK in DLF Belaire with stunning views. Marble flooring, designer bathrooms, and a fully modular kitchen. Premium society with concierge, infinity pool, and landscaped gardens.",
+      "amenities": [
+        "wifi",
+        "ac",
+        "parking",
+        "gym",
+        "cctv",
+        "power-backup",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop"
+      ],
+      "gender": "family",
+      "rating": 4.8,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-02-20"
+    },
+    {
+      "id": "flat-004",
+      "type": "flat",
+      "subtype": "4bhk",
+      "title": "Luxury 4BHK Penthouse",
+      "slug": "luxury-4bhk-penthouse-delhi",
+      "location": {
+        "area": "Vasant Kunj",
+        "city": "Delhi",
+        "state": "Delhi",
+        "fullAddress": "DLF Emporio Complex, Vasant Kunj, New Delhi 110070",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505!2d77.15!3d28.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.5200,77.1500",
+        "lat": 28.52,
+        "lng": 77.15
+      },
+      "price": {
+        "amount": 50000,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Stunning 4BHK penthouse with panoramic city views and private terrace. Italian marble throughout, home automation system, and servant quarters. Premium gated community with golf course views.",
+      "amenities": [
+        "wifi",
+        "ac",
+        "parking",
+        "gym",
+        "cctv",
+        "power-backup",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop"
+      ],
+      "gender": "family",
+      "rating": 4.9,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-02-15"
+    },
+    {
+      "id": "flat-005",
+      "type": "flat",
+      "subtype": "1bhk",
+      "title": "Cozy 1BHK Near Metro",
+      "slug": "cozy-1bhk-metro-ghaziabad",
+      "location": {
+        "area": "Vaishali",
+        "city": "Ghaziabad",
+        "state": "Uttar Pradesh",
+        "fullAddress": "Sector 4, Vaishali, Ghaziabad, UP 201010",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501!2d77.34!3d28.64!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.6400,77.3400",
+        "lat": 28.64,
+        "lng": 77.34
+      },
+      "price": {
+        "amount": 10000,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Compact 1BHK just 2 minutes from Vaishali metro station. Perfect for working professionals. Comes with basic furniture, geyser, and power backup.",
+      "amenities": [
+        "power-backup",
+        "cctv",
+        "water-purifier",
+        "geyser",
+        "parking"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop"
+      ],
+      "gender": "family",
+      "rating": 3.9,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-03-02"
+    },
+    {
+      "id": "flat-006",
+      "type": "flat",
+      "subtype": "2bhk",
+      "title": "Green View 2BHK Apartment",
+      "slug": "green-view-2bhk-noida",
+      "location": {
+        "area": "Sector 137",
+        "city": "Noida",
+        "state": "Uttar Pradesh",
+        "fullAddress": "Jaypee Greens, Sector 137, Noida, UP 201305",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504!2d77.40!3d28.51!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.5100,77.4000",
+        "lat": 28.51,
+        "lng": 77.4
+      },
+      "price": {
+        "amount": 18000,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "Beautiful 2BHK with lush green views from every window. Well-maintained society with great community vibes. Semi-furnished with wardrobes, AC in master bedroom, and modular kitchen.",
+      "amenities": [
+        "ac",
+        "parking",
+        "gym",
+        "cctv",
+        "power-backup",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop"
+      ],
+      "gender": "family",
+      "rating": 4.5,
+      "featured": true,
+      "available": true,
+      "postedDate": "2026-03-14"
+    },
+    {
+      "id": "hostel-002",
+      "type": "hostel",
+      "subtype": "2seater",
+      "title": "Campus View Hostel",
+      "slug": "campus-view-hostel-greater-noida",
+      "location": {
+        "area": "Knowledge Park II",
+        "city": "Greater Noida",
+        "state": "Uttar Pradesh",
+        "fullAddress": "Near Sharda University, Knowledge Park II, Greater Noida, UP 201310",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505!2d77.48!3d28.46!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.4600,77.4800",
+        "lat": 28.46,
+        "lng": 77.48
+      },
+      "price": {
+        "amount": 95000,
+        "period": "year",
+        "currency": "INR"
+      },
+      "description": "Comfortable 2-seater hostel near major universities. Includes daily meals, weekly laundry, and 24/7 security. Common areas with TV, table tennis, and a small library.",
+      "amenities": [
+        "wifi",
+        "food",
+        "laundry",
+        "power-backup",
+        "cctv",
+        "water-purifier"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800&h=600&fit=crop"
+      ],
+      "gender": "boys",
+      "rating": 4.1,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-02-25"
+    },
+    {
+      "id": "hostel-003",
+      "type": "hostel",
+      "subtype": "3seater",
+      "title": "Sakura Girls Hostel",
+      "slug": "sakura-girls-hostel-noida",
+      "location": {
+        "area": "Sector 44",
+        "city": "Noida",
+        "state": "Uttar Pradesh",
+        "fullAddress": "C-15, Sector 44, Noida, UP 201301",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503!2d77.35!3d28.57!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.5700,77.3500",
+        "lat": 28.57,
+        "lng": 77.35
+      },
+      "price": {
+        "amount": 75000,
+        "period": "year",
+        "currency": "INR"
+      },
+      "description": "Well-managed girls hostel with a safe and nurturing environment. Three-seater rooms with individual study corners. Homestyle food, regular yoga sessions, and a dedicated warden.",
+      "amenities": [
+        "wifi",
+        "food",
+        "laundry",
+        "power-backup",
+        "cctv",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&h=600&fit=crop"
+      ],
+      "gender": "girls",
+      "rating": 4.3,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-03-03"
+    },
+    {
+      "id": "hostel-004",
+      "type": "hostel",
+      "subtype": "1seater",
+      "title": "Metro Hub Hostel",
+      "slug": "metro-hub-hostel-delhi",
+      "location": {
+        "area": "Karol Bagh",
+        "city": "Delhi",
+        "state": "Delhi",
+        "fullAddress": "15/4, Ajmal Khan Road, Karol Bagh, Delhi 110005",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501!2d77.19!3d28.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.6500,77.1900",
+        "lat": 28.65,
+        "lng": 77.19
+      },
+      "price": {
+        "amount": 150000,
+        "period": "year",
+        "currency": "INR"
+      },
+      "description": "Centrally located hostel in the heart of Delhi. Single-seater rooms with modern amenities, high-speed internet, and excellent metro connectivity. Perfect for students and young professionals.",
+      "amenities": [
+        "wifi",
+        "ac",
+        "food",
+        "laundry",
+        "power-backup",
+        "cctv",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&h=600&fit=crop"
+      ],
+      "gender": "unisex",
+      "rating": 4.4,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-02-18"
+    },
+    {
+      "id": "hostel-005",
+      "type": "hostel",
+      "subtype": "2seater",
+      "title": "Greenfield Boys Hostel",
+      "slug": "greenfield-boys-hostel-gurugram",
+      "location": {
+        "area": "Sohna Road",
+        "city": "Gurugram",
+        "state": "Haryana",
+        "fullAddress": "Plot 88, Sohna Road, Gurugram, Haryana 122018",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508!2d77.06!3d28.41!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.4100,77.0600",
+        "lat": 28.41,
+        "lng": 77.06
+      },
+      "price": {
+        "amount": 110000,
+        "period": "year",
+        "currency": "INR"
+      },
+      "description": "Spacious 2-seater hostel with green campus and open sports grounds. Includes all meals, laundry, and housekeeping. Well-connected to corporate hubs in Gurugram.",
+      "amenities": [
+        "wifi",
+        "food",
+        "laundry",
+        "power-backup",
+        "parking",
+        "gym",
+        "cctv",
+        "water-purifier"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800&h=600&fit=crop"
+      ],
+      "gender": "boys",
+      "rating": 4.2,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-03-06"
+    },
+    {
+      "id": "hostel-006",
+      "type": "hostel",
+      "subtype": "3seater",
+      "title": "Asha Girls Hostel",
+      "slug": "asha-girls-hostel-ghaziabad",
+      "location": {
+        "area": "Raj Nagar Extension",
+        "city": "Ghaziabad",
+        "state": "Uttar Pradesh",
+        "fullAddress": "Plot 12, Raj Nagar Extension, Ghaziabad, UP 201017",
+        "gmapEmbed": "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500!2d77.35!3d28.67!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1' width='100%' height='300' style='border:0;' allowfullscreen='' loading='lazy'></iframe>",
+        "gmapLink": "https://maps.google.com/?q=28.6700,77.3500",
+        "lat": 28.67,
+        "lng": 77.35
+      },
+      "price": {
+        "amount": 65000,
+        "period": "year",
+        "currency": "INR"
+      },
+      "description": "Affordable girls hostel with a homely environment. Three meals a day, clean rooms, and a caring warden. Located near shopping centers and public transport. Best value for students.",
+      "amenities": [
+        "wifi",
+        "food",
+        "power-backup",
+        "cctv",
+        "water-purifier",
+        "geyser"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1630699144867-37acec97df5a?w=800&h=600&fit=crop"
+      ],
+      "gender": "girls",
+      "rating": 3.9,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-02-22"
+    },
+    {
+      "id": "hostel-646a8151",
+      "type": "hostel",
+      "subtype": "1seater",
+      "title": "the barline house",
+      "slug": "the-barline-house",
+      "location": {
+        "area": "greater noida",
+        "city": "Delhi",
+        "state": "Uttar Pradesh",
+        "fullAddress": "GU",
+        "gmapEmbed": "",
+        "gmapLink": "",
+        "lat": 0,
+        "lng": 0
+      },
+      "price": {
+        "amount": 135000,
+        "period": "year",
+        "currency": "INR"
+      },
+      "description": "",
+      "amenities": [
+        "wifi",
+        "ac",
+        "food",
+        "laundry",
+        "power-backup",
+        "parking",
+        "gym"
+      ],
+      "images": [],
+      "gender": "boys",
+      "rating": 4,
+      "featured": true,
+      "available": true,
+      "postedDate": "2026-04-01"
+    },
+    {
+      "id": "pg-r7lzk027",
+      "type": "pg",
+      "subtype": "double",
+      "title": "hgchgc",
+      "slug": "hgchgc",
+      "location": {
+        "area": "",
+        "city": "patna",
+        "state": "bihar",
+        "fullAddress": "mhb",
+        "gmapEmbed": "",
+        "gmapLink": "",
+        "lat": 0,
+        "lng": 0
+      },
+      "price": {
+        "amount": 455,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "",
+      "amenities": [],
+      "images": [],
+      "gender": "boys",
+      "rating": 4,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-04-01"
+    },
+    {
+      "id": "pg-olkr7on3",
+      "type": "pg",
+      "subtype": "double",
+      "title": "hgchgc",
+      "slug": "hgchgc",
+      "location": {
+        "area": "",
+        "city": "patna",
+        "state": "bihar",
+        "fullAddress": "mhb",
+        "gmapEmbed": "",
+        "gmapLink": "",
+        "lat": 0,
+        "lng": 0
+      },
+      "price": {
+        "amount": 455,
+        "period": "month",
+        "currency": "INR"
+      },
+      "description": "",
+      "amenities": [],
+      "images": [],
+      "gender": "boys",
+      "rating": 4,
+      "featured": false,
+      "available": true,
+      "postedDate": "2026-04-01"
+    }
+  ],
+  "cities": [
+    "Noida",
+    "Greater Noida",
+    "Ghaziabad",
+    "Delhi",
+    "Gurugram",
+    "greater noida",
+    "patna"
+  ],
+  "amenityLabels": {
+    "wifi": "WiFi",
+    "ac": "AC",
+    "food": "Food",
+    "laundry": "Laundry",
+    "power-backup": "Power Backup",
+    "parking": "Parking",
+    "gym": "Gym",
+    "cctv": "CCTV",
+    "water-purifier": "Water Purifier",
+    "geyser": "Geyser"
+  }
+}
